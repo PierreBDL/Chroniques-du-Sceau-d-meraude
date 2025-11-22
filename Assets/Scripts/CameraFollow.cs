@@ -14,6 +14,12 @@ public class CameraFollow : MonoBehaviour
     // Velocity reference for SmoothDamp
     private Vector3 velocity = Vector3.zero;
 
+    void Awake()
+    {
+        // Initial position of camera
+        transform.position = player.position + posOffset;
+    }
+
     void Update()
     {
         transform.position = Vector3.SmoothDamp(transform.position, player.position + posOffset, ref velocity, timeOffset);
