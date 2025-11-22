@@ -39,6 +39,9 @@ public class EnemyAI : MonoBehaviour
     public float attackCooldown = 2f;  // 2 secondes de cooldown
     private float currentCooldown = 0f;
 
+    // Dégats de l'ennemi
+    public int damage = 1;
+
     // Méthode appelée au début de l'exécution
     void Start()
     {
@@ -155,8 +158,7 @@ public class EnemyAI : MonoBehaviour
         if (Vector2.Distance(target.position, transform.position) <= attackRange)
         {
             // Infliger des dégâts au joueur
-            Debug.Log("Player hit by enemy attack");
-            Destroy(target.gameObject);
+            target.GetComponent<Player_Health>().TakeDamage(damage);
         }
     }
 

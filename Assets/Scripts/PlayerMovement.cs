@@ -13,23 +13,30 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 movement;
 
+    // Call reference to PlayerHealth script
+    public Player_Health playerHealth;
+
     // Update is called once per frame
     void Update()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+        // If the player is alive, allow movement
+        if (playerHealth.isAlive)
+        {        
+            movement.x = Input.GetAxisRaw("Horizontal");
+            movement.y = Input.GetAxisRaw("Vertical");
 
-        // Normalize diagonal movement
-        movement.Normalize();
+            // Normalize diagonal movement
+            movement.Normalize();
 
-        // Turn the player to face left or right
-        if (movement.x != 0)
-        {
-            spriteRenderer.flipX = movement.x < 0;
+            // Turn the player to face left or right
+            if (movement.x != 0)
+            {
+                spriteRenderer.flipX = movement.x < 0;
+            }
+
+            // Squared magnitude -> transform vector 2 to float
+            animator.SetFloat("Speed", movement.sqrMagnitude);
         }
-
-        // Squared magnitude -> transform vector 2 to float
-        animator.SetFloat("Speed", movement.sqrMagnitude);
     }
 
     // Repeated at fixed intervals for physics calculations

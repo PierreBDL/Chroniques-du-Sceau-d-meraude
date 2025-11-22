@@ -10,10 +10,13 @@ public class PlayerAttack : MonoBehaviour
 
     public Animator animator;
 
+    // Call PlayerHealth script
+    public Player_Health playerHealth;
+
     void Update()
     {
-        // If the space key is pressed, perform an attack
-        if (Input.GetKeyDown(KeyCode.Space))
+        // If the space key is pressed and the player is alive, perform an attack
+        if (Input.GetKeyDown(KeyCode.Space) && playerHealth.isAlive)
         {
             // Call the attack function
             PermformAttack();
