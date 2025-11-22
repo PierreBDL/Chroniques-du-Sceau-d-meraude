@@ -206,7 +206,7 @@ public class EnemyAI : MonoBehaviour
         if (Vector2.Distance(target.position, transform.position) <= attackRange)
         {
             // Infliger des dégâts au joueur
-            target.GetComponent<Player_Health>().TakeDamage(damage);
+            target.GetComponentInChildren<Player_Health>().TakeDamage(damage);
         }
     }
 

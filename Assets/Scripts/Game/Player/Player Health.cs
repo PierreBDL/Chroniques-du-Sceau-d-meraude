@@ -5,7 +5,7 @@ public class Player_Health : MonoBehaviour
 {
     // Health
     public int maxHealth = 3;
-    private int currentHealth;
+    private static int currentHealth;
 
     // Die or not
     public bool isAlive = true;
@@ -25,10 +25,43 @@ public class Player_Health : MonoBehaviour
     // Sprite Renderer
     public SpriteRenderer spriteRenderer;
 
+    // Initialize health
+    private static bool isInitialized = false;
+
+    // First initialization of health
+    void Awake ()
+    {
+        if (!isInitialized)
+        {
+            currentHealth = maxHealth;
+            isInitialized = true;
+        }
+    }
+
     // Reset health
     void Start () 
     {
-        currentHealth = maxHealth;
+        // Find healthbar UI if not assigned
+        if (healthbarUI == null)
+        {
+            // Search components by tag
+            GameObject healthbarObject = GameObject.FindGameObjectWithTag("HealthBar");
+        
+            if (healthbarObject != null)
+            {
+                healthbarUI = healthbarObject.transform;
+            }
+            else
+            {
+                // Else search by name
+                healthbarObject = GameObject.Find("Healthbar");
+                
+                if (healthbarObject != null)
+                {
+                    healthbarUI = healthbarObject.transform;
+                }
+            }
+        }
 
         // Update healthbar
         UpdateHeathbarUI();
