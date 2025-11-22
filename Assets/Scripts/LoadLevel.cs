@@ -4,13 +4,13 @@ using System.Collections;
 
 public class NewMonoBehaviourScript : MonoBehaviour
 {
-    public string levelToLoad;
+    public int levelToLoad;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            StartCoroutine(LoadSceneWithFade(levelToLoad));
+            StartCoroutine(LoadSceneWithFade( "Level" + levelToLoad.ToString("D2")));
         }
     }
 

@@ -213,6 +213,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &660250695 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3138178686943939103, guid: 57ff37ac2a32d0a4eb88bdcbb352b313, type: 3}
+  m_PrefabInstance: {fileID: 6865859668952548459}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &907884894
 GameObject:
   m_ObjectHideFlags: 0
@@ -816,8 +827,8 @@ Tilemap:
   - first: {x: 2, y: 0, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 2
-      m_TileSpriteIndex: 3
+      m_TileIndex: 7
+      m_TileSpriteIndex: 7
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -936,8 +947,8 @@ Tilemap:
   - first: {x: 2, y: 1, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 2
-      m_TileSpriteIndex: 3
+      m_TileIndex: 8
+      m_TileSpriteIndex: 8
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1099,7 +1110,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: e752d2aaf676f0a4383a84cfcfd84f3c, type: 2}
   - m_RefCount: 27
     m_Data: {fileID: 11400000, guid: 6502e1bff4db8be4ebda7ca40f9f0447, type: 2}
-  - m_RefCount: 17
+  - m_RefCount: 15
     m_Data: {fileID: 11400000, guid: 9b60eb55213c2544a9fc6f6b6c94602a, type: 2}
   - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 4de5b56046bab424ea57e5ef8ccb1e50, type: 2}
@@ -1109,9 +1120,9 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 204ed51bddc3d274a8433e778ddb8d89, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 735b0a83458bc6444b22f17d28e48c8c, type: 2}
-  - m_RefCount: 1
+  - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: ede1ae0749e4bf04cbee6038076d578a, type: 2}
-  - m_RefCount: 1
+  - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 89cd294645788544a98789067b49db1f, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 27
@@ -1120,7 +1131,7 @@ Tilemap:
     m_Data: {fileID: 603335763, guid: 3f56498a87eba484c9d14c269ef9fc32, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: -1342815813, guid: 3f56498a87eba484c9d14c269ef9fc32, type: 3}
-  - m_RefCount: 17
+  - m_RefCount: 15
     m_Data: {fileID: -1264105966, guid: 3f56498a87eba484c9d14c269ef9fc32, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -135397843, guid: 3f56498a87eba484c9d14c269ef9fc32, type: 3}
@@ -1128,9 +1139,9 @@ Tilemap:
     m_Data: {fileID: -624322173, guid: 3f56498a87eba484c9d14c269ef9fc32, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -266111915, guid: 3f56498a87eba484c9d14c269ef9fc32, type: 3}
-  - m_RefCount: 1
+  - m_RefCount: 2
     m_Data: {fileID: 801268328, guid: 3f56498a87eba484c9d14c269ef9fc32, type: 3}
-  - m_RefCount: 1
+  - m_RefCount: 2
     m_Data: {fileID: 1931745400, guid: 3f56498a87eba484c9d14c269ef9fc32, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 78
@@ -2310,6 +2321,14 @@ PrefabInstance:
     - target: {fileID: 4885564500484789123, guid: d5a10b167aa15b84ebdf3eba6c02e95b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9169365289260466873, guid: d5a10b167aa15b84ebdf3eba6c02e95b, type: 3}
+      propertyPath: levelNumber
+      value: 
+      objectReference: {fileID: 660250695}
+    - target: {fileID: 9169365289260466873, guid: d5a10b167aa15b84ebdf3eba6c02e95b, type: 3}
+      propertyPath: levelToLoad
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
