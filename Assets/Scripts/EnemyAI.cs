@@ -17,6 +17,9 @@ public class EnemyAI : MonoBehaviour
     // Distance minimale pour déclencher une attaque (l'ennemi s'arrête en dehors de cette portée)
     public float attackRange = 2f;
 
+    // Distance de détection
+    public float detectionRange = 7f;
+
     // Chemin calculé par le Seeker
     public Path path;
 
@@ -42,6 +45,21 @@ public class EnemyAI : MonoBehaviour
     // Dégats de l'ennemi
     public int damage = 1;
 
+    // Vie
+    public int maxHealth = 2;
+    private int currentHealth;
+
+    // Bool indiquant si l'ennemi est mort
+    private bool isAlive = true;
+
+
+    // Méthode appelée lors de l'initialisation de l'ennemi
+    void Awake()
+    {
+        // Initialisation de la santé actuelle de l'ennemi
+        currentHealth = maxHealth;
+    }
+
     // Méthode appelée au début de l'exécution
     void Start()
     {
@@ -52,8 +70,8 @@ public class EnemyAI : MonoBehaviour
     // Méthode pour mettre à jour le chemin vers la cible
     void UpdatePath()
     {
-        // Vérifie si le Seeker est prêt à calculer un nouveau chemin
-        if (seeker.IsDone())
+        // Vérifie si le Seeker est prêt à calculer un nouveau chemin et si l'ennemi est vivant
+        if (seeker.IsDone() && isAlive && Vector2.Distance(transform.position, target.position) <= detectionRange)
             // Demande un nouveau chemin du Seeker entre la position actuelle et la cible
             seeker.StartPath(rb.position, target.position, OnPathComplete);
     }
@@ -71,6 +89,10 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
+        // Si l'ennemi est mort, ne fait rien
+        if (!isAlive)
+            return;
+
         // Met à jour les paramètres de l'Animator en fonction de la vitesse actuelle
         animator.SetFloat("Speed", rb.linearVelocity.sqrMagnitude);
 
@@ -93,8 +115,8 @@ public class EnemyAI : MonoBehaviour
     // Méthode appelée à chaque frame fixe pour gérer les mouvements physiques
     void FixedUpdate()
     {
-        // Si aucun chemin n'a été calculé ou si tous les waypoints ont été atteints, ne fait rien
-        if (path == null || currWp >= path.vectorPath.Count)
+        // Si aucun chemin n'a été calculé ou si tous les waypoints ont été atteints, ne fait rien ou si l'ennemi est mort
+        if (path == null || currWp >= path.vectorPath.Count || !isAlive)
         {
             return;
         }
@@ -149,6 +171,32 @@ public class EnemyAI : MonoBehaviour
         animator.SetTrigger("Attack");
     }
 
+    // Méthode pour infliger des dégâts à l'ennemi
+    public void TakeDamage(int damage)
+    {
+        // On ne peut infliger de dégâts que si l'ennemi est vivant
+        if (isAlive)
+        {
+            // Réduit la santé actuelle de l'ennemi
+            currentHealth -= damage;
+
+            // Vérifie si la santé est inférieure ou égale à zéro
+            if (currentHealth <= 0)
+            {
+                animator.SetTrigger("Die");
+                isAlive = false;
+                // Détruit l'ennemi après 3 secondes pour laisser le temps de jouer l'animation de mort
+                Destroy(gameObject, 3f); 
+            } else
+            {
+                // Joue l'animation de blessure si l'ennemi est toujours vivant
+                animator.SetTrigger("Hit");
+                // Annule attaque en cours et réinitialise le cooldown
+                currentCooldown = attackCooldown;
+            }
+        }
+    }
+
     public void EndOfAttack()
     {
         // Fin de l'animation d'attaque
@@ -162,11 +210,15 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    // Visualisation de la portée d'attaque dans l'éditeur
+    // Visualisation de la portée d'attaque et de détection dans l'éditeur
     void OnDrawGizmosSelected()
     {
         // Dessine une sphère filaire rouge pour représenter la portée d'attaque
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
+
+        // Rayon de détection
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, detectionRange);
     }
 }

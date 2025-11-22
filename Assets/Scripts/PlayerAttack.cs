@@ -4,7 +4,10 @@ public class PlayerAttack : MonoBehaviour
 {
     public float attackRange = 1.5f;
 
-    public int damage = 10;
+    public int damage = 1;
+
+    // Knockback force
+    public float knockbackForce = 5f;
 
     public SpriteRenderer spriteRenderer;
 
@@ -12,6 +15,9 @@ public class PlayerAttack : MonoBehaviour
 
     // Call PlayerHealth script
     public Player_Health playerHealth;
+
+    // Call EnemyHealth script
+    public EnemyAI enemyScript;
 
     void Update()
     {
@@ -46,9 +52,13 @@ public class PlayerAttack : MonoBehaviour
                 // Check if the enemy is in the attack direction
                 if (Vector2.Dot(attackDirection, directionToEnemy) > 0)
                 {
-                    // Reduce the enemy's health
-                    Debug.Log("Ennemie touché");
-                    Destroy(collider.gameObject);
+                    // Reduce the enemy's health after calling the TakeDamage function from EnemyAI script
+                    EnemyAI enemyScript = collider.GetComponent<EnemyAI>();
+                    enemyScript.TakeDamage(damage);
+
+                    // Knockback effect
+                    Vector2 KnockbackDirection = (collider.transform.position - transform.position).normalized;
+                    enemyScript.rb.AddForce(KnockbackDirection * knockbackForce, ForceMode2D.Impulse);
                 }  
             }
         }
