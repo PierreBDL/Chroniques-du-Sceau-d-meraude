@@ -52,6 +52,9 @@ public class EnemyAI : MonoBehaviour
     // Bool indiquant si l'ennemi est mort
     private bool isAlive = true;
 
+    // Call pause menu script
+    public PauseMenu pauseMenu;
+
 
     // Méthode appelée lors de l'initialisation de l'ennemi
     void Awake()
@@ -71,7 +74,7 @@ public class EnemyAI : MonoBehaviour
     void UpdatePath()
     {
         // Vérifie si le Seeker est prêt à calculer un nouveau chemin et si l'ennemi est vivant
-        if (seeker.IsDone() && isAlive && Vector2.Distance(transform.position, target.position) <= detectionRange)
+        if (seeker.IsDone() && isAlive && (pauseMenu == null || !pauseMenu.isPaused) && Vector2.Distance(transform.position, target.position) <= detectionRange)
             // Demande un nouveau chemin du Seeker entre la position actuelle et la cible
             seeker.StartPath(rb.position, target.position, OnPathComplete);
     }
@@ -89,8 +92,8 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
-        // Si l'ennemi est mort, ne fait rien
-        if (!isAlive)
+        // Si l'ennemi est mort ou le jeu en pause, ne fait rien
+        if (!isAlive || (pauseMenu != null && pauseMenu.isPaused))
             return;
 
         // Met à jour les paramètres de l'Animator en fonction de la vitesse actuelle
@@ -115,8 +118,8 @@ public class EnemyAI : MonoBehaviour
     // Méthode appelée à chaque frame fixe pour gérer les mouvements physiques
     void FixedUpdate()
     {
-        // Si aucun chemin n'a été calculé ou si tous les waypoints ont été atteints, ne fait rien ou si l'ennemi est mort
-        if (path == null || currWp >= path.vectorPath.Count || !isAlive)
+        // Si aucun chemin n'a été calculé ou si tous les waypoints ont été atteints, ne fait rien ou si l'ennemi est mort ou le jeu en pause
+        if (path == null || currWp >= path.vectorPath.Count || !isAlive || (pauseMenu != null && pauseMenu.isPaused))
         {
             return;
         }

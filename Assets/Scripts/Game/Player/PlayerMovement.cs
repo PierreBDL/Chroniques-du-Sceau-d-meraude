@@ -16,11 +16,14 @@ public class PlayerMovement : MonoBehaviour
     // Call reference to PlayerHealth script
     public Player_Health playerHealth;
 
+    // Call pause menu script
+    public PauseMenu pauseMenu;
+
     // Update is called once per frame
     void Update()
     {
-        // If the player is alive, allow movement
-        if (playerHealth.isAlive)
+        // If the player is alive and the game is not paused, allow movement
+        if (playerHealth.isAlive && (pauseMenu == null || !pauseMenu.isPaused))
         {        
             movement.x = Input.GetAxisRaw("Horizontal");
             movement.y = Input.GetAxisRaw("Vertical");

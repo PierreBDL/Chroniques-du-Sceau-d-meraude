@@ -19,10 +19,13 @@ public class PlayerAttack : MonoBehaviour
     // Call EnemyHealth script
     public EnemyAI enemyScript;
 
+    // Call pause menu script
+    public PauseMenu pauseMenu;
+
     void Update()
     {
-        // If the space key is pressed and the player is alive, perform an attack
-        if (Input.GetKeyDown(KeyCode.Space) && playerHealth.isAlive)
+        // If the space key is pressed and the player is alive and the game is not paused, perform an attack
+        if (Input.GetKeyDown(KeyCode.Space) && playerHealth.isAlive && (pauseMenu == null || !pauseMenu.isPaused))
         {
             // Call the attack function
             PermformAttack();
