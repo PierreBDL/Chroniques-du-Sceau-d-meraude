@@ -97,3 +97,25 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+
+# Dossiers de packages importés que vous ne voulez pas versionner
+Packages/com.citrion.common/
+Packages/com.citrion.settings-menu-creator/
+Packages/com.citrion.styleprofile/
+Packages/com.citrion.ui.components/
+Packages/com.citrion.ui.images/
+Packages/com.citrion.ui.panels/
+Packages/com.citrion.ui/
+
+# Nouveaux dossiers d'art (si ce sont des dossiers de travail et non les assets finaux)
+Assets/Art/LevelsTileSheets/
+Assets/Art/Logo/
+Assets/Art/MainMenu/
+Assets/Art/UiSheets/
+
+# Fichiers Prefabs et Scènes spécifiques qui pourraient être temporaires
+Assets/Prefabs/PauseMenu.prefab
+Assets/Prefabs/PauseMenu.prefab.meta
+Assets/Scenes/common/Settings.unity
+Assets/Scenes/common/Settings.unity.meta
