@@ -1442,6 +1442,17 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!114 &1251093659 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3708226320645531336, guid: 779243693fb3c2348b0fd1182709f9d5, type: 3}
+  m_PrefabInstance: {fileID: 5395710678473350154}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df17f02d1461efb4697dd954f70845b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputManager
 --- !u!1 &1427287412
 GameObject:
   m_ObjectHideFlags: 0
@@ -2700,6 +2711,10 @@ PrefabInstance:
       propertyPath: pauseMenu
       value: 
       objectReference: {fileID: 628183444}
+    - target: {fileID: 4185098093326601397, guid: 09518a0fbaf04db4284ce018dfa1a7a4, type: 3}
+      propertyPath: inputManager
+      value: 
+      objectReference: {fileID: 1251093659}
     - target: {fileID: 6113801275694861274, guid: 09518a0fbaf04db4284ce018dfa1a7a4, type: 3}
       propertyPath: healthbarUI
       value: 
@@ -2712,6 +2727,10 @@ PrefabInstance:
       propertyPath: enemyScript
       value: 
       objectReference: {fileID: 240196169}
+    - target: {fileID: 8123011421797694052, guid: 09518a0fbaf04db4284ce018dfa1a7a4, type: 3}
+      propertyPath: inputManager
+      value: 
+      objectReference: {fileID: 1251093659}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

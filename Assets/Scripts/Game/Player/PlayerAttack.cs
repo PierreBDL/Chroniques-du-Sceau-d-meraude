@@ -22,14 +22,28 @@ public class PlayerAttack : MonoBehaviour
     // Call pause menu script
     public PauseMenu pauseMenu;
 
+    // Call keyManagement script
+    public InputManager inputManager;
+
     void Update()
     {
-        // If the space key is pressed and the player is alive and the game is not paused, perform an attack
-        if (Input.GetKeyDown(KeyCode.Space) && playerHealth.isAlive && (pauseMenu == null || !pauseMenu.isPaused))
+         if (inputManager != null)
         {
-            // Call the attack function
-            PermformAttack();
+            // If the attack key is pressed and the player is alive and the game is not paused, perform an attack
+            if (Input.GetKeyDown(inputManager.attackKeyCode) && playerHealth.isAlive && (pauseMenu == null || !pauseMenu.isPaused))
+            {
+                // Call the attack function
+                PermformAttack();
+            }
         }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Space) && playerHealth.isAlive && (pauseMenu == null || !pauseMenu.isPaused))
+            {
+                // Call the attack function
+                PermformAttack();
+            }
+        }   
     }
 
     void PermformAttack()
