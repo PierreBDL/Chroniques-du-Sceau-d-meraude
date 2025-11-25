@@ -19,14 +19,48 @@ public class PlayerMovement : MonoBehaviour
     // Call pause menu script
     public PauseMenu pauseMenu;
 
+    // Call InputManager to get custom key mappings
+    public InputManager inputManager;
+
     // Update is called once per frame
     void Update()
     {
         // If the player is alive and the game is not paused, allow movement
         if (playerHealth.isAlive && (pauseMenu == null || !pauseMenu.isPaused))
-        {        
-            movement.x = Input.GetAxisRaw("Horizontal");
-            movement.y = Input.GetAxisRaw("Vertical");
+        {
+            // Reset movement
+            movement = Vector2.zero;
+
+            // Check custom key bindings from InputManager
+            if (inputManager != null)
+            {
+                // Up
+                if (Input.GetKey(inputManager.upKeyCode))
+                {
+                    movement.y = 1;
+                }
+                // Down
+                if (Input.GetKey(inputManager.downKeyCode))
+                {
+                    movement.y = -1;
+                }
+                // Left
+                if (Input.GetKey(inputManager.leftKeyCode))
+                {
+                    movement.x = -1;
+                }
+                // Right
+                if (Input.GetKey(inputManager.rightKeyCode))
+                {
+                    movement.x = 1;
+                }
+            }
+            else
+            {
+                // Fallback to default input if InputManager is not assigned
+                movement.x = Input.GetAxisRaw("Horizontal");
+                movement.y = Input.GetAxisRaw("Vertical");
+            }
 
             // Normalize diagonal movement
             movement.Normalize();
