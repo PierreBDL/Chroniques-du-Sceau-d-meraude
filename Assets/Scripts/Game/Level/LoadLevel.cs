@@ -10,7 +10,11 @@ public class NewMonoBehaviourScript : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            StartCoroutine(LoadSceneWithFade( "Level" + levelToLoad.ToString("D2")));
+            // We store the next level name before loading new level
+            OpenSettingsOrigin.originLevelName = "Level" + levelToLoad.ToString("D2");
+            
+            // Start loading the level with fade effect
+            StartCoroutine(LoadSceneWithFade("Level" + levelToLoad.ToString("D2")));
         }
     }
 
