@@ -55,6 +55,10 @@ public class EnemyAI : MonoBehaviour
     // Call pause menu script
     public PauseMenu pauseMenu;
 
+    // Appelle de PlayerStats avec toutes les statistiques du joueur (vie et argent)
+    public Player_Health playerHealth;
+    public GoldManagement goldManagement;
+
 
     // Méthode appelée lors de l'initialisation de l'ennemi
     void Awake()
@@ -190,6 +194,8 @@ public class EnemyAI : MonoBehaviour
                 isAlive = false;
                 // Détruit l'ennemi après 3 secondes pour laisser le temps de jouer l'animation de mort
                 Destroy(gameObject, 3f); 
+                // Donner de l'argent au joueur à la mort de l'ennemi
+                goldManagement.AddGold(10);
             } else
             {
                 // Joue l'animation de blessure si l'ennemi est toujours vivant
@@ -209,7 +215,7 @@ public class EnemyAI : MonoBehaviour
         if (Vector2.Distance(target.position, transform.position) <= attackRange)
         {
             // Infliger des dégâts au joueur
-            target.GetComponentInChildren<Player_Health>().TakeDamage(damage);
+            playerHealth.TakeDamage(damage);
         }
     }
 
@@ -224,4 +230,4 @@ public class EnemyAI : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
     }
-}
+} 
