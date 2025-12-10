@@ -30,7 +30,7 @@ public class ItemManager : MonoBehaviour
 
         // Set collider size
         GetComponent<BoxCollider2D>().offset = Vector2.zero;
-        GetComponent<BoxCollider2D>().size = new Vector2(0.1f, 0.2f);
+        GetComponent<BoxCollider2D>().size = new Vector2(0.05f, 0.2f);
     }
 
     // Show price when player is in trigger
