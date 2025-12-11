@@ -118,4 +118,31 @@ public class Player_Health : MonoBehaviour
     {
         spriteRenderer.enabled = false;
     }
+
+    // Regenerate health
+    public void RegenerateHealth (int healthRestore)
+    {
+        // Only if player is alive
+        if (isAlive) {
+            currentHealth += healthRestore;
+
+            // Forbid health overflow
+            if (currentHealth > maxHealth)
+                currentHealth = maxHealth;
+
+            // Update healthbar
+            UpdateHeathbarUI();
+        }
+    }
+
+    // Upgrade max health
+    public void UpgradeMaxHealth (int healthUpgrade) {
+        if (isAlive) {
+            maxHealth += healthUpgrade;
+            currentHealth = maxHealth;
+
+            // Update healthbar
+            UpdateHeathbarUI();
+        }
+    }
 }
