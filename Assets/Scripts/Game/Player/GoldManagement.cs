@@ -34,6 +34,16 @@ public class GoldManagement : MonoBehaviour
         UpdateGoldUI();
     }
 
+    // Method to deduct gold
+    public void DeductGold(int amount)
+    {
+        if (currentGold - amount >= 0)
+        {
+            currentGold -= amount;
+            UpdateGoldUI();
+        }
+    }
+
     // Print gold amount in UI
     public void UpdateGoldUI()
     {

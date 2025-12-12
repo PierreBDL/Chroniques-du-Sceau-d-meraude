@@ -62,7 +62,7 @@ public class BuyItem : MonoBehaviour
         if (playerMoney >= itemPrice)
         {
             // Deduct the price from player's money
-            GoldManagement.currentGold -= itemPrice;
+            PlayerStats.GetComponentInChildren<GoldManagement>().DeductGold(itemPrice);
             BuyOrNotText.GetComponentInChildren<TextMeshProUGUI>().text = "Item Purchased!";
 
             // Remove the item from the scene
