@@ -976,6 +976,7 @@ MonoBehaviour:
   PlayerStats: {fileID: 1351614688}
   Collider2DBuyItem: {fileID: 646153339}
   BuyOrNotText: {fileID: 326895820}
+  ImageNoStock: {fileID: -2724480080740632066, guid: 4a684e6930b88dd46b2a9a03c4f5868f, type: 3}
 --- !u!1 &705061282
 GameObject:
   m_ObjectHideFlags: 0
@@ -1123,6 +1124,7 @@ GameObject:
   - component: {fileID: 738772315}
   - component: {fileID: 738772316}
   - component: {fileID: 738772318}
+  - component: {fileID: 738772319}
   - component: {fileID: 738772317}
   m_Layer: 0
   m_Name: Item2
@@ -1270,6 +1272,23 @@ MonoBehaviour:
   priceTextPanel: {fileID: 180745938}
   nameText: {fileID: 705061284}
   nameTextPanel: {fileID: 6522990}
+--- !u!114 &738772319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 738772314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7b2ca42418255b4bae9ea83a7f0442a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuyItem
+  PriceItem: {fileID: 1217207773}
+  PlayerStats: {fileID: 1351614688}
+  Collider2DBuyItem: {fileID: 738772317}
+  BuyOrNotText: {fileID: 326895820}
+  ImageNoStock: {fileID: -2724480080740632066, guid: 4a684e6930b88dd46b2a9a03c4f5868f, type: 3}
 --- !u!20 &854655198 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 1012968050309268968, guid: 037d1e56174219a488a6d951b8bd5004, type: 3}
@@ -3017,6 +3036,7 @@ GameObject:
   - component: {fileID: 1319354214}
   - component: {fileID: 1319354215}
   - component: {fileID: 1319354217}
+  - component: {fileID: 1319354218}
   - component: {fileID: 1319354216}
   m_Layer: 0
   m_Name: Item3
@@ -3164,6 +3184,23 @@ MonoBehaviour:
   priceTextPanel: {fileID: 180745938}
   nameText: {fileID: 705061284}
   nameTextPanel: {fileID: 6522990}
+--- !u!114 &1319354218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319354213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7b2ca42418255b4bae9ea83a7f0442a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuyItem
+  PriceItem: {fileID: 1217207773}
+  PlayerStats: {fileID: 1351614688}
+  Collider2DBuyItem: {fileID: 1319354216}
+  BuyOrNotText: {fileID: 326895820}
+  ImageNoStock: {fileID: -2724480080740632066, guid: 4a684e6930b88dd46b2a9a03c4f5868f, type: 3}
 --- !u!1001 &1351001228
 PrefabInstance:
   m_ObjectHideFlags: 0

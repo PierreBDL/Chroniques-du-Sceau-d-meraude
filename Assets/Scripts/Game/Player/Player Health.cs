@@ -6,6 +6,7 @@ public class Player_Health : MonoBehaviour
     // Health
     public int maxHealth = 3;
     private static int currentHealth;
+    public int maxHealthWithUpgrades = 7;
 
     // Die or not
     public bool isAlive = true;
@@ -138,7 +139,11 @@ public class Player_Health : MonoBehaviour
     // Upgrade max health
     public void UpgradeMaxHealth (int healthUpgrade) {
         if (isAlive) {
-            maxHealth += healthUpgrade;
+            if (maxHealth + healthUpgrade <= maxHealthWithUpgrades) {
+                maxHealth += healthUpgrade;
+            } else {
+                maxHealth = maxHealthWithUpgrades;
+            }
             currentHealth = maxHealth;
 
             // Update healthbar
