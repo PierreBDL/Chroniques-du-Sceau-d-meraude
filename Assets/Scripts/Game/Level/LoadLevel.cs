@@ -4,17 +4,17 @@ using System.Collections;
 
 public class NewMonoBehaviourScript : MonoBehaviour
 {
-    public int levelToLoad;
+    public string levelToLoad;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
             // We store the next level name before loading new level
-            OpenSettingsOrigin.originLevelName = "Level" + levelToLoad.ToString("D2");
+            OpenSettingsOrigin.originLevelName = levelToLoad;
             
             // Start loading the level with fade effect
-            StartCoroutine(LoadSceneWithFade("Level" + levelToLoad.ToString("D2")));
+            StartCoroutine(LoadSceneWithFade(levelToLoad));
         }
     }
 
