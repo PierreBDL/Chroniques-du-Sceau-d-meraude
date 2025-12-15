@@ -70,6 +70,26 @@ public class EnemyAI : MonoBehaviour
     // Méthode appelée au début de l'exécution
     void Start()
     {
+        // Chercher les composants nécessaires s'ils ne sont pas assignés
+        if (target == null)
+        {
+            GameObject playerObject = GameObject.FindWithTag("Player");
+            if (playerObject != null)
+            {
+                target = playerObject.transform;
+            }
+        }
+
+        if (playerHealth == null)
+        {
+            playerHealth = GameObject.Find("PlayerStats").GetComponent<Player_Health>();
+        }
+
+        if (goldManagement == null)
+        {
+            goldManagement = GameObject.Find("PlayerStats").GetComponent<GoldManagement>();
+        }
+
         // Met à jour le chemin toutes les 0,5 secondes pour suivre la position du joueur
         InvokeRepeating("UpdatePath", 0, 0.5f);
     }

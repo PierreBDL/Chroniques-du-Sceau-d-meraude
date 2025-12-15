@@ -20,6 +20,19 @@ public class CameraFollow : MonoBehaviour
         transform.position = player.position + posOffset;
     }
 
+    void Start()
+    {
+        // Find player object if not assigned
+        if (player == null)
+        {
+            GameObject playerObject = GameObject.FindWithTag("Player");
+            if (playerObject != null)
+            {
+                player = playerObject.transform;
+            }
+        }
+    }
+
     void Update()
     {
         transform.position = Vector3.SmoothDamp(transform.position, player.position + posOffset, ref velocity, timeOffset);

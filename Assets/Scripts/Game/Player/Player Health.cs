@@ -20,14 +20,14 @@ public class Player_Health : MonoBehaviour
     // List to keep track of health icons
     private List<GameObject> healthIcons = new List<GameObject>();
 
-    // Animator
-    public Animator animator;
-
-    // Sprite Renderer
-    public SpriteRenderer spriteRenderer;
+    // Player
+    public GameObject player;
 
     // Initialize health
     private static bool isInitialized = false;
+
+    // Bool all components are found
+    private bool componentsFound = false;
 
     // First initialization of health
     void Awake ()
@@ -42,6 +42,11 @@ public class Player_Health : MonoBehaviour
     // Reset health
     void Start () 
     {
+        if (player == null || healthbarUI == null)
+        {
+            componentsFound = false;
+        }
+
         // Find healthbar UI if not assigned
         if (healthbarUI == null)
         {
@@ -64,8 +69,61 @@ public class Player_Health : MonoBehaviour
             }
         }
 
-        // Update healthbar
-        UpdateHeathbarUI();
+        if (player == null)
+        {
+            player = GameObject.FindWithTag("Player");
+        }
+
+        if (player != null && healthbarUI != null)
+        {
+            componentsFound = true;
+            // Update healthbar
+            UpdateHeathbarUI();
+        }   
+    }
+
+    void Update () 
+    {
+
+        if (player == null || healthbarUI == null)
+        {
+            componentsFound = false;
+        }
+
+
+        // Find player if not assigned and update healthbar
+        if (player == null)
+        {
+            player = GameObject.FindWithTag("Player");
+        }
+
+        if (healthbarUI == null)
+        {
+            // Search components by tag
+            GameObject healthbarObject = GameObject.FindGameObjectWithTag("HealthBar");
+        
+            if (healthbarObject != null)
+            {
+                healthbarUI = healthbarObject.transform;
+            }
+            else
+            {
+                // Else search by name
+                healthbarObject = GameObject.Find("Healthbar");
+                
+                if (healthbarObject != null)
+                {
+                    healthbarUI = healthbarObject.transform;
+                }
+            }
+        }
+
+        if (player != null && healthbarUI != null && !componentsFound)
+        {
+            componentsFound = true;
+            // Update healthbar
+            UpdateHeathbarUI();
+        }
     }
 
     // Damage managment
@@ -85,7 +143,7 @@ public class Player_Health : MonoBehaviour
             // Check if player is dead
             if (currentHealth <= 0)
             {
-                animator.SetTrigger("Die");
+                player.GetComponent<Animator>().SetTrigger("Die");
             
                 // Player is dead
                 isAlive = false;
@@ -117,7 +175,7 @@ public class Player_Health : MonoBehaviour
     // Diseable player if is dead
     public void DisablePlayerVisual ()
     {
-        spriteRenderer.enabled = false;
+        player.GetComponent<SpriteRenderer>().enabled = false;
     }
 
     // Regenerate health

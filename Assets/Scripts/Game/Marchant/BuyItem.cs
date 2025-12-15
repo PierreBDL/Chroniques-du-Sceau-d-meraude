@@ -23,6 +23,21 @@ public class BuyItem : MonoBehaviour
 
     void Update()
     {
+        if (PlayerStats == null)
+        {
+            PlayerStats = GameObject.FindWithTag("PlayerStats");
+        }
+
+        if (PriceItem == null)
+        {
+            PriceItem = GameObject.Find("PriceItem");
+        }
+
+        if (BuyOrNotText == null)
+        {
+            BuyOrNotText = GameObject.FindWithTag("BuyOrNot");
+        }
+
         // Check for E key press when player is in range
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
         {
@@ -59,10 +74,10 @@ public class BuyItem : MonoBehaviour
         BuyOrNotText.SetActive(true);
 
         // Buy Item
-        if (playerMoney >= itemPrice)
+        if (playerMoney >= itemPrice && Collider2DBuyItem.enabled)
         {
             // Deduct the price from player's money
-            PlayerStats.GetComponentInChildren<GoldManagement>().DeductGold(itemPrice);
+            PlayerStats.GetComponent<GoldManagement>().DeductGold(itemPrice);
             BuyOrNotText.GetComponentInChildren<TextMeshProUGUI>().text = "Item Purchased!";
 
             // Remove the item from the scene
@@ -75,10 +90,10 @@ public class BuyItem : MonoBehaviour
             GetComponent<BoxCollider2D>().size = new Vector2(12, 12);
 
             // Active the effect of buying item
-            if (this.GetComponent<ItemManager>().NameItem == "Coeur")
+            if (this.GetComponent<ItemManager>().NameItem == "Coeur" && PlayerStats.GetComponent<Player_Health>().isAlive == true)
             {
                 // Upgrade max health by 1
-                PlayerStats.GetComponentInChildren<Player_Health>().UpgradeMaxHealth(1);
+                PlayerStats.GetComponent<Player_Health>().UpgradeMaxHealth(1);
             }
         } else {
             BuyOrNotText.GetComponentInChildren<TextMeshProUGUI>().text = "Not enough gold!";

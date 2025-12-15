@@ -27,6 +27,26 @@ public class GoldManagement : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        if (MoneyQuantity == null)
+        {
+            MoneyQuantity = GameObject.FindWithTag("MoneyQuantity");
+            UpdateGoldUI();
+        } else {
+            UpdateGoldUI();
+        }
+    }
+
+    void Update()
+    {
+        if (MoneyQuantity == null)
+        {
+            MoneyQuantity = GameObject.FindWithTag("MoneyQuantity");
+            UpdateGoldUI();
+        }
+    }
+
     // Method to add gold
     public void AddGold(int amount)
     {

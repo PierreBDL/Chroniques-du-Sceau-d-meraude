@@ -99,6 +99,7 @@ MonoBehaviour:
   - {fileID: 4456378218858289534}
   - {fileID: 0}
   - {fileID: 7344618306418019582}
+  - {fileID: 0}
 --- !u!114 &5132151452918189650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,7 +124,7 @@ GameObject:
   - component: {fileID: 3708226320645531336}
   m_Layer: 5
   m_Name: InputManager
-  m_TagString: Untagged
+  m_TagString: InputManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

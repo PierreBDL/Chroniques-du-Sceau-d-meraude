@@ -25,6 +25,35 @@ public class PlayerAttack : MonoBehaviour
     // Call keyManagement script
     public InputManager inputManager;
 
+    void Start()
+    {
+        // Find Player_Health component if not assigned
+        if (playerHealth == null)
+        {
+            playerHealth = GameObject.Find("PlayerStats").GetComponent<Player_Health>();
+            if (playerHealth == null)
+            {
+                Debug.LogError("Player_Health component not found on the player!");
+            }
+        }
+
+        // Find PauseMenu component if not assigned
+        if (pauseMenu == null)
+        {
+            GameObject pauseMenuObject = GameObject.FindWithTag("PauseMenu");
+            if (pauseMenuObject != null)
+            {
+                pauseMenu = pauseMenuObject.GetComponent<PauseMenu>();
+            }
+        }
+
+        // Find InputManager component if not assigned
+        if (inputManager == null)
+        {
+            inputManager = GameObject.FindWithTag("InputManager").GetComponent<InputManager>();
+        }
+    }
+
     void Update()
     {
          if (inputManager != null)

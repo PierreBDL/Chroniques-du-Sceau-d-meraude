@@ -12,14 +12,16 @@ public class DontDestroyOnLoadScene : MonoBehaviour
             // Check if there is another Player in the scene
             if (element.CompareTag("Player"))
             {
-                GameObject existingPlayer = GameObject.FindGameObjectWithTag("Player");
+                GameObject[] allPlayers = GameObject.FindGameObjectsWithTag("Player");
                 
-                // Destroy the new Player
-                if (existingPlayer != null && existingPlayer != element)
+                // Destroy all existing Players except the one in this list
+                foreach (GameObject existingPlayer in allPlayers)
                 {
-                    // Destroy the new Player
-                    Destroy(element);
-                    continue;
+                    if (existingPlayer != element && existingPlayer != null)
+                    {
+                        // Destroy the existing Player from previous scene
+                        Destroy(existingPlayer);
+                    }
                 }
             }
 
