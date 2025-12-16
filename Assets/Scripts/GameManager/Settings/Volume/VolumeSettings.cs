@@ -7,6 +7,11 @@ public class VolumeSettings : MonoBehaviour
 
     public void SetVolume (float volume)
     {
-        audioMixer.SetFloat("Volume", volume);
+        audioMixer.SetFloat("Music", volume);
+    }
+
+    public void SetSoundVolume (float volume)
+    {
+        audioMixer.SetFloat("Sound", volume);
     }
 }

@@ -9,6 +9,9 @@ TagManager:
   - InputManager
   - PauseMenu
   - MoneyQuantity
+  - BuyOrNot
+  - GameManager
+  - PlayerStats
   layers:
   - Default
   - TransparentFX

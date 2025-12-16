@@ -2806,6 +2806,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4104593409387672960, guid: 779243693fb3c2348b0fd1182709f9d5, type: 3}
+      propertyPath: m_TagString
+      value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856084796993947774, guid: 779243693fb3c2348b0fd1182709f9d5, type: 3}
+      propertyPath: m_TagString
+      value: PlayerStats
+      objectReference: {fileID: 0}
     - target: {fileID: 8824937031418382723, guid: 779243693fb3c2348b0fd1182709f9d5, type: 3}
       propertyPath: objects.Array.size
       value: 7
@@ -2883,6 +2891,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5848348862792072487, guid: 304492d80b51830408bb474e6d6b5e17, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 5234647962225812213, guid: fa66fb67da08f9a4abea17e8b3f60355, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

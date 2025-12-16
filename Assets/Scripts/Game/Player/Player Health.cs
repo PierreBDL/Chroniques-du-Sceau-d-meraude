@@ -1,8 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class Player_Health : MonoBehaviour
 {
+    // Singleton instance
+    public static Player_Health Instance;
+
     // Health
     private static int maxHealth = 3;
     private static int currentHealth;
@@ -26,12 +30,22 @@ public class Player_Health : MonoBehaviour
     // Initialize health
     private static bool isInitialized = false;
 
-    // Bool all components are found
-    private bool componentsFound = false;
+    // UI initialized
+    private bool uiInitialized = false;
 
     // First initialization of health
-    void Awake ()
+    void Awake()
     {
+        // Singleton protection
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
         if (!isInitialized)
         {
             currentHealth = maxHealth;
@@ -39,132 +53,71 @@ public class Player_Health : MonoBehaviour
         }
     }
 
-    // Reset health
-    void Start () 
+    // Search ui every scene load
+    void OnEnable()
     {
-        if (player == null || healthbarUI == null)
-        {
-            componentsFound = false;
-        }
-
-        // Find healthbar UI if not assigned
-        if (healthbarUI == null)
-        {
-            // Search components by tag
-            GameObject healthbarObject = GameObject.FindGameObjectWithTag("HealthBar");
-        
-            if (healthbarObject != null)
-            {
-                healthbarUI = healthbarObject.transform;
-            }
-            else
-            {
-                // Else search by name
-                healthbarObject = GameObject.Find("Healthbar");
-                
-                if (healthbarObject != null)
-                {
-                    healthbarUI = healthbarObject.transform;
-                }
-            }
-        }
-
-        if (player == null)
-        {
-            player = GameObject.FindWithTag("Player");
-        }
-
-        if (player != null && healthbarUI != null)
-        {
-            componentsFound = true;
-            // Update healthbar
-            UpdateHeathbarUI();
-        }   
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    void Update () 
+    void OnDisable()
     {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
 
-        if (player == null || healthbarUI == null)
+    // Called when a new scene is loaded
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Reset references (UI is destroyed/recreated)
+        healthbarUI = null;
+        uiInitialized = false;
+    }
+
+    void Update()
+    {
+        if (!uiInitialized)
         {
-            componentsFound = false;
-        }
-
-
-        // Find player if not assigned and update healthbar
-        if (player == null)
-        {
-            player = GameObject.FindWithTag("Player");
-        }
-
-        if (healthbarUI == null)
-        {
-            // Search components by tag
-            GameObject healthbarObject = GameObject.FindGameObjectWithTag("HealthBar");
-        
-            if (healthbarObject != null)
+            GameObject hb = GameObject.FindGameObjectWithTag("HealthBar");
+            if (hb != null)
             {
-                healthbarUI = healthbarObject.transform;
+                healthbarUI = hb.transform;
+                BuildHealthbar();
+                uiInitialized = true;
             }
-            else
-            {
-                // Else search by name
-                healthbarObject = GameObject.Find("Healthbar");
-                
-                if (healthbarObject != null)
-                {
-                    healthbarUI = healthbarObject.transform;
-                }
-            }
-        }
-
-        if (player != null && healthbarUI != null && !componentsFound)
-        {
-            componentsFound = true;
-            // Update healthbar
-            UpdateHeathbarUI();
         }
     }
 
     // Damage managment
-    public void TakeDamage (int damage)
+    public void TakeDamage(int damage)
     {
-        // if player is alive -> can take damage
-        if (isAlive) {
-            currentHealth -= damage;
+        if (!isAlive) return;
 
-            // Forbid negative health
-            if (currentHealth < 0)
-                currentHealth = 0;
+        currentHealth -= damage;
+        if (currentHealth < 0)
+            currentHealth = 0;
 
-            // Update healthbar
-            UpdateHeathbarUI();
+        BuildHealthbar();
 
-            // Check if player is dead
-            if (currentHealth <= 0)
-            {
-                player.GetComponent<Animator>().SetTrigger("Die");
-            
-                // Player is dead
-                isAlive = false;
-            }
+        if (currentHealth <= 0)
+        {
+            player.GetComponent<Animator>().SetTrigger("Die");
+            isAlive = false;
         }
     }
 
-    // Upgrade healthbar
-    public void UpdateHeathbarUI ()
+    // Build healthbar UI
+    void BuildHealthbar()
     {
-        // Delete all healths
+        if (healthbarUI == null || hpPrefab == null)
+            return;
+
         foreach (GameObject icon in healthIcons)
         {
-            // Check if icon is not null to avoid errors
             if (icon != null)
                 Destroy(icon);
         }
-        // Clear the list after destroying all icons
+
         healthIcons.Clear();
 
-        // Create healths from prefab and add them to the list
         for (int i = 0; i < currentHealth; i++)
         {
             GameObject newHP = Instantiate(hpPrefab, healthbarUI);
@@ -172,40 +125,29 @@ public class Player_Health : MonoBehaviour
         }
     }
 
-    // Diseable player if is dead
-    public void DisablePlayerVisual ()
-    {
-        player.GetComponent<SpriteRenderer>().enabled = false;
-    }
-
     // Regenerate health
-    public void RegenerateHealth (int healthRestore)
+    public void RegenerateHealth(int healthRestore)
     {
-        // Only if player is alive
-        if (isAlive) {
-            currentHealth += healthRestore;
+        if (!isAlive) return;
 
-            // Forbid health overflow
-            if (currentHealth > maxHealth)
-                currentHealth = maxHealth;
+        currentHealth += healthRestore;
+        if (currentHealth > maxHealth)
+            currentHealth = maxHealth;
 
-            // Update healthbar
-            UpdateHeathbarUI();
-        }
+        BuildHealthbar();
     }
 
     // Upgrade max health
-    public void UpgradeMaxHealth (int healthUpgrade) {
-        if (isAlive) {
-            if (maxHealth + healthUpgrade <= maxHealthWithUpgrades) {
-                maxHealth += healthUpgrade;
-            } else {
-                maxHealth = maxHealthWithUpgrades;
-            }
-            currentHealth = maxHealth;
+    public void UpgradeMaxHealth(int healthUpgrade)
+    {
+        if (!isAlive) return;
 
-            // Update healthbar
-            UpdateHeathbarUI();
-        }
+        if (maxHealth + healthUpgrade <= maxHealthWithUpgrades)
+            maxHealth += healthUpgrade;
+        else
+            maxHealth = maxHealthWithUpgrades;
+
+        currentHealth = maxHealth;
+        BuildHealthbar();
     }
 }
